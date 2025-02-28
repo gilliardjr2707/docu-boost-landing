@@ -358,7 +358,7 @@ const Index = () => {
         </section>
         
         {/* CTA/Form Section */}
-        <section id="contact" ref={demoFormRef} className="section bg-gradient-to-br from-brand-blue to-brand-lightBlue text-white">
+        <section id="contact" ref={demoFormRef} className="section bg-gradient-to-br from-brand-blue to-brand-lightBlue text-white rounded-xl">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="animate-fade-up">
