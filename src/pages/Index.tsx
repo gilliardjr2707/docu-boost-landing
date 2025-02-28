@@ -1,64 +1,50 @@
-
 import { useState, useRef, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
-import {
-  Rocket,
-  FileScan,
-  Shield,
-  Smartphone,
-  Workflow,
-  FileCheck,
-  Brain,
-  ChevronDown,
-  ChevronUp,
-  CheckCircle2,
-  ArrowRight
-} from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Rocket, FileScan, Shield, Smartphone, Workflow, FileCheck, Brain, ChevronDown, ChevronUp, CheckCircle2, ArrowRight } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Company logos for social proof section
-const companyLogos = [
-  { name: "Empresa 1", logo: "https://placehold.co/200x80/ffffff/333333?text=LOGO 1" },
-  { name: "Empresa 2", logo: "https://placehold.co/200x80/ffffff/333333?text=LOGO 2" },
-  { name: "Empresa 3", logo: "https://placehold.co/200x80/ffffff/333333?text=LOGO 3" },
-  { name: "Empresa 4", logo: "https://placehold.co/200x80/ffffff/333333?text=LOGO 4" },
-  { name: "Empresa 5", logo: "https://placehold.co/200x80/ffffff/333333?text=LOGO 5" },
-];
+const companyLogos = [{
+  name: "Empresa 1",
+  logo: "https://placehold.co/200x80/ffffff/333333?text=LOGO 1"
+}, {
+  name: "Empresa 2",
+  logo: "https://placehold.co/200x80/ffffff/333333?text=LOGO 2"
+}, {
+  name: "Empresa 3",
+  logo: "https://placehold.co/200x80/ffffff/333333?text=LOGO 3"
+}, {
+  name: "Empresa 4",
+  logo: "https://placehold.co/200x80/ffffff/333333?text=LOGO 4"
+}, {
+  name: "Empresa 5",
+  logo: "https://placehold.co/200x80/ffffff/333333?text=LOGO 5"
+}];
 
 // Testimonials
-const testimonials = [
-  {
-    name: "Maria Silva",
-    company: "Empresa ABC",
-    position: "Gerente Administrativa",
-    quote: "O M-Files revolucionou nossa gestão documental. Economizamos 15 horas por semana em processos que antes eram completamente manuais.",
-    avatar: "https://randomuser.me/api/portraits/women/45.jpg",
-  },
-  {
-    name: "Carlos Oliveira",
-    company: "Construtora XYZ",
-    position: "Diretor de Operações",
-    quote: "Implementamos o M-Files há 6 meses e já vimos um aumento de 40% na produtividade da equipe. A busca inteligente é impressionante!",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-  },
-  {
-    name: "Patrícia Mendes",
-    company: "Grupo Jurídico",
-    position: "Advogada Sênior",
-    quote: "O controle de versões do M-Files trouxe segurança aos nossos processos jurídicos. Agora temos um histórico completo de cada documento.",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-  },
-];
-
+const testimonials = [{
+  name: "Maria Silva",
+  company: "Empresa ABC",
+  position: "Gerente Administrativa",
+  quote: "O M-Files revolucionou nossa gestão documental. Economizamos 15 horas por semana em processos que antes eram completamente manuais.",
+  avatar: "https://randomuser.me/api/portraits/women/45.jpg"
+}, {
+  name: "Carlos Oliveira",
+  company: "Construtora XYZ",
+  position: "Diretor de Operações",
+  quote: "Implementamos o M-Files há 6 meses e já vimos um aumento de 40% na produtividade da equipe. A busca inteligente é impressionante!",
+  avatar: "https://randomuser.me/api/portraits/men/32.jpg"
+}, {
+  name: "Patrícia Mendes",
+  company: "Grupo Jurídico",
+  position: "Advogada Sênior",
+  quote: "O controle de versões do M-Files trouxe segurança aos nossos processos jurídicos. Agora temos um histórico completo de cada documento.",
+  avatar: "https://randomuser.me/api/portraits/women/68.jpg"
+}];
 const Index = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -66,12 +52,13 @@ const Index = () => {
     segment: "",
     email: "",
     company: "",
-    position: "",
+    position: ""
   });
-  
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const demoFormRef = useRef<HTMLDivElement>(null);
 
   // Handle scroll effects
@@ -79,7 +66,6 @@ const Index = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -87,33 +73,40 @@ const Index = () => {
   // Testimonial carousel auto-rotation
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+      setActiveTestimonial(prev => (prev + 1) % testimonials.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, []);
 
   // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const {
+      name,
+      value
+    } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   // Handle segment select change
   const handleSegmentChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, segment: value }));
+    setFormData(prev => ({
+      ...prev,
+      segment: value
+    }));
   };
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    
     toast({
       title: "Demonstração Agendada!",
-      description: "Nossa equipe entrará em contato em breve para confirmar.",
+      description: "Nossa equipe entrará em contato em breve para confirmar."
     });
-    
+
     // Reset form
     setFormData({
       name: "",
@@ -121,26 +114,22 @@ const Index = () => {
       segment: "",
       email: "",
       company: "",
-      position: "",
+      position: ""
     });
   };
 
   // Scroll to demo section
   const scrollToDemo = () => {
-    demoFormRef.current?.scrollIntoView({ behavior: "smooth" });
+    demoFormRef.current?.scrollIntoView({
+      behavior: "smooth"
+    });
   };
-
-  return (
-    <div className="relative min-h-screen">
+  return <div className="relative min-h-screen">
       {/* Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-6 ${isScrolled ? "bg-white/95 shadow-md backdrop-blur-sm" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center">
-            <img 
-              src="https://placehold.co/160x40/ffffff/333333?text=IBSdocs" 
-              alt="IBSdocs Logo" 
-              className="h-8 mr-2"
-            />
+            <img src="https://placehold.co/160x40/ffffff/333333?text=IBSdocs" alt="IBSdocs Logo" className="h-8 mr-2" />
           </div>
           <nav className="hidden md:flex space-x-6">
             <a href="#benefits" className="text-gray-700 hover:text-brand-blue transition-colors duration-200">Benefícios</a>
@@ -175,18 +164,10 @@ const Index = () => {
                   com a solução líder em gestão documental.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button 
-                    onClick={scrollToDemo}
-                    className="btn-primary"
-                    size="lg"
-                  >
+                  <Button onClick={scrollToDemo} className="btn-primary" size="lg">
                     Agende uma Demonstração
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    className="btn-secondary group"
-                    size="lg"
-                  >
+                  <Button variant="outline" className="btn-secondary group" size="lg">
                     Saiba mais
                     <ChevronDown className="ml-2 h-4 w-4 transition-transform group-hover:rotate-180" />
                   </Button>
@@ -194,11 +175,7 @@ const Index = () => {
               </div>
               <div className="relative animate-fade-up">
                 <div className="absolute inset-0 bg-gradient-radial from-brand-blue/20 to-transparent rounded-3xl blur-2xl"></div>
-                <img 
-                  src="https://placehold.co/720x480/f5f5f5/333333?text=Dashboard+M-Files" 
-                  alt="M-Files Dashboard" 
-                  className="relative rounded-xl shadow-2xl border border-white/50 w-full hover-scale"
-                />
+                <img src="https://placehold.co/720x480/f5f5f5/333333?text=Dashboard+M-Files" alt="M-Files Dashboard" className="relative rounded-xl shadow-2xl border border-white/50 w-full hover-scale" />
                 <div className="absolute -bottom-6 -right-6 bg-white rounded-lg shadow-lg p-4 animate-float hidden md:block">
                   <div className="flex items-center">
                     <div className="bg-green-100 rounded-full p-2 mr-3">
@@ -222,15 +199,9 @@ const Index = () => {
               Empresas que confiam no M-Files
             </p>
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-              {companyLogos.map((company, index) => (
-                <div key={index} className="h-12 opacity-70 hover:opacity-100 transition-opacity duration-300">
-                  <img 
-                    src={company.logo} 
-                    alt={company.name} 
-                    className="h-full object-contain"
-                  />
-                </div>
-              ))}
+              {companyLogos.map((company, index) => <div key={index} className="h-12 opacity-70 hover:opacity-100 transition-opacity duration-300">
+                  <img src={company.logo} alt={company.name} className="h-full object-contain" />
+                </div>)}
             </div>
           </div>
         </section>
@@ -347,32 +318,23 @@ const Index = () => {
               <div className="absolute inset-0 bg-gradient-radial from-brand-blue/5 to-transparent rounded-3xl blur-3xl"></div>
               
               {/* Testimonial Carousel */}
-              <div className="relative bg-white rounded-2xl shadow-lg p-8 md:p-12 mx-auto max-w-4xl border border-white/50 overflow-hidden">
+              <div className="relative bg-white shadow-lg p-8 md:p-12 mx-auto max-w-4xl border border-white/50 overflow-hidden rounded-md px-[60px] py-[137px]">
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-gray-100 overflow-hidden">
-                  <div 
-                    className="h-full bg-brand-blue transition-all duration-300 ease-linear"
-                    style={{ width: `${(activeTestimonial + 1) * (100 / testimonials.length)}%` }}
-                  ></div>
+                  <div className="h-full bg-brand-blue transition-all duration-300 ease-linear" style={{
+                  width: `${(activeTestimonial + 1) * (100 / testimonials.length)}%`
+                }}></div>
                 </div>
                 
                 <div className="absolute right-12 top-12 opacity-5">
                   <svg width="80" height="60" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16.976 60C12.094 60 8.052 58.4 4.85 55.2C1.647 52 0.046 47.84 0.046 42.72C0.046 37.12 1.426 31.52 4.186 25.92C6.946 20.24 10.686 14.96 15.406 10.08L25.406 17.28C21.406 21.52 18.19 25.6 15.756 29.52C13.323 33.44 12.106 36.96 12.106 40.08C12.106 41.04 12.256 41.92 12.556 42.72C12.936 43.44 13.706 44.08 14.866 44.64C18.55 37.76 23.49 34.32 29.686 34.32C33.686 34.32 36.966 35.44 39.526 37.68C42.086 39.84 43.366 43.12 43.366 47.52C43.366 51.76 41.876 55.12 38.896 57.6C35.916 59.2 31.966 60 27.046 60H16.976ZM53.647 60C48.766 60 44.723 58.4 41.523 55.2C38.323 52 36.723 47.84 36.723 42.72C36.723 37.12 38.102 31.52 40.863 25.92C43.623 20.24 47.363 14.96 52.082 10.08L62.082 17.28C58.082 21.52 54.866 25.6 52.432 29.52C49.999 33.44 48.782 36.96 48.782 40.08C48.782 41.04 48.932 41.92 49.232 42.72C49.613 43.44 50.382 44.08 51.543 44.64C55.223 37.76 60.166 34.32 66.363 34.32C70.363 34.32 73.643 35.44 76.203 37.68C78.762 39.84 80.042 43.12 80.042 47.52C80.042 51.76 78.553 55.12 75.572 57.6C72.593 59.2 68.643 60 63.723 60H53.647Z" fill="currentColor"/>
+                    <path d="M16.976 60C12.094 60 8.052 58.4 4.85 55.2C1.647 52 0.046 47.84 0.046 42.72C0.046 37.12 1.426 31.52 4.186 25.92C6.946 20.24 10.686 14.96 15.406 10.08L25.406 17.28C21.406 21.52 18.19 25.6 15.756 29.52C13.323 33.44 12.106 36.96 12.106 40.08C12.106 41.04 12.256 41.92 12.556 42.72C12.936 43.44 13.706 44.08 14.866 44.64C18.55 37.76 23.49 34.32 29.686 34.32C33.686 34.32 36.966 35.44 39.526 37.68C42.086 39.84 43.366 43.12 43.366 47.52C43.366 51.76 41.876 55.12 38.896 57.6C35.916 59.2 31.966 60 27.046 60H16.976ZM53.647 60C48.766 60 44.723 58.4 41.523 55.2C38.323 52 36.723 47.84 36.723 42.72C36.723 37.12 38.102 31.52 40.863 25.92C43.623 20.24 47.363 14.96 52.082 10.08L62.082 17.28C58.082 21.52 54.866 25.6 52.432 29.52C49.999 33.44 48.782 36.96 48.782 40.08C48.782 41.04 48.932 41.92 49.232 42.72C49.613 43.44 50.382 44.08 51.543 44.64C55.223 37.76 60.166 34.32 66.363 34.32C70.363 34.32 73.643 35.44 76.203 37.68C78.762 39.84 80.042 43.12 80.042 47.52C80.042 51.76 78.553 55.12 75.572 57.6C72.593 59.2 68.643 60 63.723 60H53.647Z" fill="currentColor" />
                   </svg>
                 </div>
                 
                 <div className="relative">
-                  {testimonials.map((testimonial, index) => (
-                    <div 
-                      key={index}
-                      className={`transition-opacity duration-500 absolute inset-0 flex flex-col md:flex-row gap-8 items-center ${index === activeTestimonial ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-                    >
+                  {testimonials.map((testimonial, index) => <div key={index} className={`transition-opacity duration-500 absolute inset-0 flex flex-col md:flex-row gap-8 items-center ${index === activeTestimonial ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
                       <div className="flex-shrink-0">
-                        <img 
-                          src={testimonial.avatar} 
-                          alt={testimonial.name} 
-                          className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover shadow-lg border-4 border-white"
-                        />
+                        <img src={testimonial.avatar} alt={testimonial.name} className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover shadow-lg border-4 border-white" />
                       </div>
                       <div>
                         <p className="text-lg md:text-xl text-gray-600 mb-4 italic">
@@ -383,20 +345,12 @@ const Index = () => {
                           <p className="text-gray-500">{testimonial.position}, {testimonial.company}</p>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
                 
                 {/* Testimonial navigation */}
                 <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 mt-8">
-                  {testimonials.map((_, index) => (
-                    <button 
-                      key={index}
-                      onClick={() => setActiveTestimonial(index)}
-                      className={`w-3 h-3 rounded-full transition-all ${index === activeTestimonial ? 'bg-brand-blue w-6' : 'bg-gray-300'}`}
-                      aria-label={`Ver depoimento ${index + 1}`}
-                    />
-                  ))}
+                  {testimonials.map((_, index) => <button key={index} onClick={() => setActiveTestimonial(index)} className={`w-3 h-3 rounded-full transition-all ${index === activeTestimonial ? 'bg-brand-blue w-6' : 'bg-gray-300'}`} aria-label={`Ver depoimento ${index + 1}`} />)}
                 </div>
               </div>
             </div>
@@ -445,43 +399,18 @@ const Index = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-2">
                       <Label htmlFor="name" className="text-gray-700">Nome</Label>
-                      <Input 
-                        id="name" 
-                        name="name" 
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="Seu nome completo" 
-                        required 
-                        className="w-full" 
-                      />
+                      <Input id="name" name="name" value={formData.name} onChange={handleInputChange} placeholder="Seu nome completo" required className="w-full" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="phone" className="text-gray-700">Telefone</Label>
-                      <Input 
-                        id="phone" 
-                        name="phone" 
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        placeholder="(00) 00000-0000" 
-                        required 
-                        className="w-full" 
-                      />
+                      <Input id="phone" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="(00) 00000-0000" required className="w-full" />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-gray-700">E-mail</Label>
-                      <Input 
-                        id="email" 
-                        name="email" 
-                        type="email" 
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="seu@email.com" 
-                        required 
-                        className="w-full" 
-                      />
+                      <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} placeholder="seu@email.com" required className="w-full" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="segment" className="text-gray-700">Segmento da Empresa</Label>
@@ -505,34 +434,15 @@ const Index = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-2">
                       <Label htmlFor="company" className="text-gray-700">Nome da Empresa</Label>
-                      <Input 
-                        id="company" 
-                        name="company" 
-                        value={formData.company}
-                        onChange={handleInputChange}
-                        placeholder="Nome da sua empresa" 
-                        required 
-                        className="w-full" 
-                      />
+                      <Input id="company" name="company" value={formData.company} onChange={handleInputChange} placeholder="Nome da sua empresa" required className="w-full" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="position" className="text-gray-700">Cargo</Label>
-                      <Input 
-                        id="position" 
-                        name="position" 
-                        value={formData.position}
-                        onChange={handleInputChange}
-                        placeholder="Seu cargo" 
-                        required 
-                        className="w-full" 
-                      />
+                      <Input id="position" name="position" value={formData.position} onChange={handleInputChange} placeholder="Seu cargo" required className="w-full" />
                     </div>
                   </div>
 
-                  <Button 
-                    type="submit"
-                    className="w-full bg-brand-blue hover:bg-brand-lightBlue text-white py-3 rounded-md font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
-                  >
+                  <Button type="submit" className="w-full bg-brand-blue hover:bg-brand-lightBlue text-white py-3 rounded-md font-medium transition-all duration-300 shadow-lg hover:shadow-xl">
                     Quero Ver o M-Files em Ação
                   </Button>
                 </form>
@@ -624,11 +534,7 @@ const Index = () => {
       <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
-            <img 
-              src="https://placehold.co/160x40/333333/FFFFFF?text=IBSdocs" 
-              alt="IBSdocs Logo" 
-              className="h-10 mb-4"
-            />
+            <img src="https://placehold.co/160x40/333333/FFFFFF?text=IBSdocs" alt="IBSdocs Logo" className="h-10 mb-4" />
             <p className="text-gray-400 mt-4">
               Soluções inteligentes para gestão documental e processos empresariais.
             </p>
@@ -702,10 +608,7 @@ const Index = () => {
               </li>
             </ul>
             
-            <Button 
-              onClick={scrollToDemo}
-              className="mt-8 bg-white text-gray-900 hover:bg-gray-200"
-            >
+            <Button onClick={scrollToDemo} className="mt-8 bg-white text-gray-900 hover:bg-gray-200">
               Agendar Demonstração
             </Button>
           </div>
@@ -724,8 +627,6 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
