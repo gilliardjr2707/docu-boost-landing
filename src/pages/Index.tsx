@@ -8,6 +8,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactFormSection from "@/components/ContactFormSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
+import AnimatedBackground from "@/components/AnimatedBackground";
 import { companyLogos, testimonials, benefitVideos } from "@/components/constants";
 
 const Index = () => {
@@ -22,6 +23,7 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen">
+      <AnimatedBackground />
       <Header scrollToDemo={scrollToDemo} />
       
       <main>
