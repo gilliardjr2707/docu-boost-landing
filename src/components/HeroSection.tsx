@@ -1,14 +1,12 @@
-
 import { Button } from "@/components/ui/button";
 import { ChevronDown, CheckCircle2 } from "lucide-react";
-
 interface HeroSectionProps {
   scrollToDemo: () => void;
 }
-
-const HeroSection = ({ scrollToDemo }: HeroSectionProps) => {
-  return (
-    <section className="pt-32 pb-20 md:pt-40 md:pb-32 px-4 bg-gradient-to-b from-white to-brand-lightGray">
+const HeroSection = ({
+  scrollToDemo
+}: HeroSectionProps) => {
+  return <section className="pt-32 pb-20 md:pt-40 md:pb-32 px-4 bg-gradient-to-b from-white to-brand-lightGray">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="animate-fade-up">
@@ -27,10 +25,7 @@ const HeroSection = ({ scrollToDemo }: HeroSectionProps) => {
               <Button onClick={scrollToDemo} className="btn-primary" size="lg">
                 Agende uma Demonstração
               </Button>
-              <Button variant="outline" className="btn-secondary group" size="lg">
-                Saiba mais
-                <ChevronDown className="ml-2 h-4 w-4 transition-transform group-hover:rotate-180" />
-              </Button>
+              
             </div>
           </div>
           <div className="relative animate-fade-up">
@@ -50,8 +45,6 @@ const HeroSection = ({ scrollToDemo }: HeroSectionProps) => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
