@@ -1,6 +1,4 @@
-
 import { useState, useEffect } from "react";
-
 interface Testimonial {
   name: string;
   company: string;
@@ -8,12 +6,12 @@ interface Testimonial {
   quote: string;
   avatar: string;
 }
-
 interface TestimonialsSectionProps {
   testimonials: Testimonial[];
 }
-
-const TestimonialsSection = ({ testimonials }: TestimonialsSectionProps) => {
+const TestimonialsSection = ({
+  testimonials
+}: TestimonialsSectionProps) => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
 
   // Testimonial carousel auto-rotation
@@ -23,9 +21,7 @@ const TestimonialsSection = ({ testimonials }: TestimonialsSectionProps) => {
     }, 5000);
     return () => clearInterval(interval);
   }, [testimonials.length]);
-
-  return (
-    <section id="testimonials" className="section bg-gradient-to-b from-brand-lightGray to-white">
+  return <section id="testimonials" className="section bg-gradient-to-b from-brand-lightGray to-white">
       <div className="max-w-7xl mx-auto">
         <h2 className="section-title">
           O que nossos clientes dizem
@@ -38,7 +34,7 @@ const TestimonialsSection = ({ testimonials }: TestimonialsSectionProps) => {
           <div className="absolute inset-0 bg-gradient-radial from-brand-blue/5 to-transparent rounded-3xl blur-3xl"></div>
           
           {/* Testimonial Carousel */}
-          <div className="relative bg-white shadow-lg p-8 md:p-12 mx-auto max-w-4xl border border-white/50 overflow-hidden rounded-md px-[60px] py-[137px]">
+          <div className="relative bg-white shadow-lg p-8 md:p-12 mx-auto max-w-4xl border border-white/50 overflow-hidden rounded-md px-[60px] py-[141px]">
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gray-100 overflow-hidden">
               <div className="h-full bg-brand-blue transition-all duration-300 ease-linear" style={{
               width: `${(activeTestimonial + 1) * (100 / testimonials.length)}%`
@@ -52,8 +48,7 @@ const TestimonialsSection = ({ testimonials }: TestimonialsSectionProps) => {
             </div>
             
             <div className="relative">
-              {testimonials.map((testimonial, index) => (
-                <div key={index} className={`transition-opacity duration-500 absolute inset-0 flex flex-col md:flex-row gap-8 items-center ${index === activeTestimonial ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
+              {testimonials.map((testimonial, index) => <div key={index} className={`transition-opacity duration-500 absolute inset-0 flex flex-col md:flex-row gap-8 items-center ${index === activeTestimonial ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
                   <div className="flex-shrink-0">
                     <img src={testimonial.avatar} alt={testimonial.name} className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover shadow-lg border-4 border-white" />
                   </div>
@@ -66,26 +61,16 @@ const TestimonialsSection = ({ testimonials }: TestimonialsSectionProps) => {
                       <p className="text-gray-500">{testimonial.position}, {testimonial.company}</p>
                     </div>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
             
             {/* Testimonial navigation */}
             <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 mt-8">
-              {testimonials.map((_, index) => (
-                <button 
-                  key={index} 
-                  onClick={() => setActiveTestimonial(index)} 
-                  className={`w-3 h-3 rounded-full transition-all ${index === activeTestimonial ? 'bg-brand-blue w-6' : 'bg-gray-300'}`} 
-                  aria-label={`Ver depoimento ${index + 1}`} 
-                />
-              ))}
+              {testimonials.map((_, index) => <button key={index} onClick={() => setActiveTestimonial(index)} className={`w-3 h-3 rounded-full transition-all ${index === activeTestimonial ? 'bg-brand-blue w-6' : 'bg-gray-300'}`} aria-label={`Ver depoimento ${index + 1}`} />)}
             </div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default TestimonialsSection;
