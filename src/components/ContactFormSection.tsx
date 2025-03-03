@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -27,6 +27,33 @@ const ContactFormSection = ({ demoFormRef }: { demoFormRef: React.RefObject<HTML
   });
   
   const { toast } = useToast();
+  
+  // Timer state
+  const [timeLeft, setTimeLeft] = useState({
+    hours: 23,
+    minutes: 59,
+    seconds: 59
+  });
+
+  // Initialize and update countdown timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev.seconds > 0) {
+          return { ...prev, seconds: prev.seconds - 1 };
+        } else if (prev.minutes > 0) {
+          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+        } else if (prev.hours > 0) {
+          return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        } else {
+          // Reset timer to 23:59:59 when it reaches 0
+          return { hours: 23, minutes: 59, seconds: 59 };
+        }
+      });
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, []);
 
   // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,6 +90,11 @@ const ContactFormSection = ({ demoFormRef }: { demoFormRef: React.RefObject<HTML
       company: "",
       position: ""
     });
+  };
+
+  // Format time with leading zeros
+  const formatTime = (value: number) => {
+    return value < 10 ? `0${value}` : value;
   };
 
   return (
@@ -153,6 +185,25 @@ const ContactFormSection = ({ demoFormRef }: { demoFormRef: React.RefObject<HTML
               <Button type="submit" className="w-full bg-brand-blue hover:bg-brand-lightBlue text-white py-3 rounded-md font-medium transition-all duration-300 shadow-lg hover:shadow-xl">
                 Quero Ver o M-Files em Ação
               </Button>
+              
+              {/* Countdown Timer */}
+              <div className="mt-2 text-center">
+                <p className="text-sm text-gray-500 mb-1">Oferta especial por tempo limitado:</p>
+                <div className="flex justify-center gap-2">
+                  <div className="bg-gray-100 rounded-md px-2 py-1">
+                    <span className="text-brand-blue font-bold">{formatTime(timeLeft.hours)}</span>
+                    <span className="text-xs text-gray-500 block">horas</span>
+                  </div>
+                  <div className="bg-gray-100 rounded-md px-2 py-1">
+                    <span className="text-brand-blue font-bold">{formatTime(timeLeft.minutes)}</span>
+                    <span className="text-xs text-gray-500 block">min</span>
+                  </div>
+                  <div className="bg-gray-100 rounded-md px-2 py-1">
+                    <span className="text-brand-blue font-bold">{formatTime(timeLeft.seconds)}</span>
+                    <span className="text-xs text-gray-500 block">seg</span>
+                  </div>
+                </div>
+              </div>
             </form>
             <p className="text-center text-gray-500 text-sm mt-5">
               Seus dados estão seguros e não serão compartilhados com terceiros.
